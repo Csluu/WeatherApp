@@ -5,10 +5,10 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const axios = require("axios");
 const currentWindow = require("electron").BrowserWindow.getFocusedWindow();
 const path = require("path");
-// API and longitude and latitude nums 
-const dotenv = require('dotenv');
-dotenv.config();
+// API and longitude and latitude nums
+const { API_KEY, LATITUDE_NUM, LONGITUDE_NUM } = require("./config.js");
 
+// ! Change this to "production" or "development" when in development in when ready for production 
 process.env.NODE_ENV = "production";
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -17,6 +17,7 @@ const isWin = process.platform === "win32";
 
 let mainWindow;
 
+// ! Change devTools and frame to false for production
 const createMainWindow = () => {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
@@ -32,6 +33,7 @@ const createMainWindow = () => {
 			// Set this to false when in production
 			devTools: false,
 			nodeIntegration: true,
+			// when using the preload script turn this to true to help with security reasons
 			contextIsolation: true,
 			preload: path.join(__dirname, "preload.js"),
 		},
@@ -96,13 +98,13 @@ ipcMain.handle("get-weather", async (event, location) => {
 		method: "GET",
 		url: "https://ai-weather-by-meteosource.p.rapidapi.com/daily",
 		params: {
-			lat: process.env.LATITUDE_NUM,
-			lon: process.env.LONGITUDE_NUM,
+			lat: LATITUDE_NUM,
+			lon: LONGITUDE_NUM,
 			language: "en",
 			units: "auto",
 		},
 		headers: {
-			"X-RapidAPI-Key": process.env.API_KEY,
+			"X-RapidAPI-Key": API_KEY,
 			"X-RapidAPI-Host": "ai-weather-by-meteosource.p.rapidapi.com",
 		},
 	};
@@ -114,3 +116,4 @@ ipcMain.handle("get-weather", async (event, location) => {
 		console.error(error);
 	}
 });
+

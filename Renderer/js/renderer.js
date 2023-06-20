@@ -9,56 +9,56 @@ async function fetchWeather() {
 
 		const weatherImages = {
 			mostly_cloudy: {
-				day: "./assets/mostly_cloudy.png",
-				night: "./assets/mostly_cloudy_night.png",
+				day: "mostly_cloudy.png",
+				night: "mostly_cloudy_night.png",
 			},
 			cloud: {
-				day: "./assets/cloudy.png",
-				night: "./assets/cloudy.png",
+				day: "cloudy.png",
+				night: "cloudy.png",
 			},
 			overcast: {
-				day: "./assets/cloudy.png",
-				night: "./assets/cloudy.png",
+				day: "cloudy.png",
+				night: "cloudy.png",
 			},
 			fog: {
-				day: "./assets/fog.png",
-				night: "./assets/fog.png",
+				day: "fog.png",
+				night: "fog.png",
 			},
 			snow: {
-				day: "./assets/snow.png",
-				night: "./assets/snow.png",
+				day: "snow.png",
+				night: "snow.png",
 			},
 			hail: {
-				day: "./assets/snow.png",
-				night: "./assets/snow.png",
+				day: "snow.png",
+				night: "snow.png",
 			},
 			rain: {
-				day: "./assets/rain.png",
-				night: "./assets/rain.png",
+				day: "rain.png",
+				night: "rain.png",
 			},
 			freezing: {
-				day: "./assets/freezing.png",
-				night: "./assets/freezing.png",
+				day: "freezing.png",
+				night: "freezing.png",
 			},
 			storm: {
-				day: "./assets/storm.png",
-				night: "./assets/storm.png",
+				day: "storm.png",
+				night: "storm.png",
 			},
 			mostly_sunny: {
-				day: "./assets/sunny.png",
-				night: "./assets/night.png",
+				day: "sunny.png",
+				night: "night.png",
 			},
 			partly_sunny: {
-				day: "./assets/partly_sunny.png",
-				night: "./assets/partly_night.png",
+				day: "partly_sunny.png",
+				night: "partly_night.png",
 			},
 			sunny: {
-				day: "./assets/sunny.png",
-				night: "./assets/night.png",
+				day: "sunny.png",
+				night: "night.png",
 			},
 			"": {
-				day: "./assets/question.png",
-				night: "./assets/question.png",
+				day: "question.png",
+				night: "question.png",
 			},
 		};
 		const weatherState = {
@@ -113,8 +113,10 @@ async function fetchWeather() {
 
 			// Get the corresponding image URL based on weather condition and day/night
 			const imageUrl = weatherCondition
-				? weatherImages[weatherCondition][isDaytime ? "day" : "night"]
-				: "question.png";
+				? window.myAPI.getAssetPath(
+						weatherImages[weatherCondition][isDaytime ? "day" : "night"]
+				  )
+				: window.myAPI.getAssetPath("question.png");
 
 			if (forecast.day === today) {
 				todayContent += `

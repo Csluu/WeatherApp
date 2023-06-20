@@ -6,17 +6,28 @@
 	"main": "main.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "electron ."
+		"start": "electron .",
+		"build:linux": "electron-builder --linux --x64"
 	},
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
 		"electron": "^25.0.1",
+		"electron-builder": "^24.4.0",
 		"tailwindcss": "^3.3.2"
 	},
 	"dependencies": {
 		"axios": "^1.4.0",
-		"dotenv": "^16.3.1",
-		"electron-store": "^8.1.0"
+		"electron-is-dev": "^2.0.0"
+	},
+	"build": {
+		"appId": "com.weather-app",
+		"linux": {
+			"target": "AppImage",
+			"icon": "./build/icon.png"
+		},
+		"asarUnpack": [
+			"./Renderer/assets/**"
+		]
 	}
 }
