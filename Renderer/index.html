@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="script-src 'self' 'unsafe-inline'"
+		/>
+		<title>Digital Clock</title>
+		<meta name="description" content="Weather Application" />
+		<meta name="keywords" content="Weather Application" />
+		<link rel="stylesheet" href="css/styles.css" />
+		<script src="js/renderer.js" defer></script>
+	</head>
+	<body class="body">
+		<main
+			class="daily-card"
+		>
+			<div class="flex flex-col justify-center px-8 py-8">
+				<div id="today-weather" class="flex flex-col"></div>
+			</div>
+		</main>
+		<main
+			class="weekly-card"
+		>
+			<!-- Menu buttons  -->
+			<header id="body" class="flex flex-col drag">
+				<div
+					class="flex justify-end px-4 translate-y-2 duration-300 ease-in-out"
+				>
+					<div class="flex flex-row noDrag">
+						<button id="menu-1" class="menu">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								class="opacity-50 hover:opacity-100 duration-150 ease-in-out hover:scale-110"
+							>
+								<path
+									fill="gray"
+									d="M7 12a2 2 0 1 1-4 0a2 2 0 0 1 4 0Zm7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0Zm7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z"
+								/>
+							</svg>
+						</button>
+						<!-- Drop Down Menu -->
+						<div
+							id="drop-down-1"
+							class="drop-menu select-none noDrag hidden z-50"
+						>
+							<h1 class="block px-4 py-2 text-sm text-gray-400">Main Menu</h1>
+							<ul class="text-sm text-gray-700 dark:text-gray-200">
+								<button id="lock-menu-1" class="lock-menu">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										class="opacity-50 group-hover:opacity-100 group-hover:scale-105 ease-in-out duration-150"
+									>
+										<path
+											fill="gray"
+											d="M6 22q-.825 0-1.413-.588T4 20V10q0-.825.588-1.413T6 8h1V6q0-2.075 1.463-3.538T12 1q2.075 0 3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.588 1.413T18 22H6Zm6-5q.825 0 1.413-.588T14 15q0-.825-.588-1.413T12 13q-.825 0-1.413.588T10 15q0 .825.588 1.413T12 17ZM9 8h6V6q0-1.25-.875-2.125T12 3q-1.25 0-2.125.875T9 6v2Z"
+										/>
+									</svg>
+									<a
+										class="py-[10px] duration-150 ease-in-out group-hover:scale-[102%]"
+										>Lock</a
+									>
+								</button>
+
+								<button
+									onclick="window.electron.minimizeWindow()"
+									class="lock-menu h-full"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 16 16"
+										class="opacity-50 group-hover:opacity-100 group-hover:scale-110 ease-in-out duration-150"
+									>
+										<path
+											style="fill: gray"
+											d="M 4 7 L 4 9 L 12 9 L 12 7 L 4 7 z"
+										/>
+									</svg>
+									<a
+										class="py-[10px] duration-150 ease-in-out group-hover:scale-[102%] h-full"
+										>Minimize</a
+									>
+								</button>
+							</ul>
+						</div>
+						<form id="todo-form1">
+							<button
+								onclick="window.electron.closeWindow()"
+								class="flex justify-center place-items-center w-8 h-8 rounded-lg noDrag"
+								type="submit"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="24"
+									height="24"
+									viewBox="0 0 16 16"
+									version="1.1"
+									fill="#ff0000"
+									class="opacity-50 hover:opacity-100 duration-150 ease-in-out hover:scale-110"
+								>
+									<path
+										style="fill: gray"
+										d="M 5,4 C 4.4477,4 4,4.4477 4,5 4,5.2652 4.1055,5.5195 4.293,5.707 L 10.293,11.707 C 10.48,11.895 10.735,12 11,12 11.552,12 12,11.552 12,11 12,10.735 11.895,10.48 11.707,10.293 L 5.707,4.293 C 5.5195,4.1055 5.2652,4 5,4 Z"
+									/>
+									<path
+										style="fill: gray"
+										d="M 5,12 C 4.4477,12 4,11.552 4,11 4,10.735 4.1055,10.48 4.293,10.293 L 10.293,4.293 C 10.48,4.105 10.735,4 11,4 11.552,4 12,4.448 12,5 12,5.265 11.895,5.52 11.707,5.707 L 5.707,11.707 C 5.5195,11.895 5.2652,12 5,12 Z"
+									/>
+								</svg>
+							</button>
+						</form>
+					</div>
+				</div>
+			</header>
+			<section class="flex h-fit flex-col mx-4">
+				<div class="flex flex-col w-full justify-evenly gap-2">
+					<h1 class="flex justify-start text-2xl px-4 text-clear-blue">
+						Weekly Forecast
+					</h1>
+					<!-- TEST -->
+					<div
+						id="forecast-weather"
+						class="flex flex-col w-full h-[390px] justify-start gap-4 px-4 py-2 overflow-scroll rounded-3xl"
+					></div>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>

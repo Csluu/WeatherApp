@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.noDrag {
+	-webkit-app-region: no-drag;
+}
+
+.drag {
+	-webkit-app-region: drag;
+}
+
+* {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	::-webkit-scrollbar {
+		display: none;
+	}
+	@apply select-none;
+}
+
+.body {
+	@apply flex justify-center place-items-center mt-3 font-quicksand font-semibold gap-6;
+}
+
+.drop-menu {
+	@apply fixed divide-y divide-dark-gray-highlight rounded-xl shadow-border bg-opaque-dark-gray w-36 mt-8 translate-x-[-55px] noDrag;
+}
+
+.lock-menu {
+	@apply flex flex-row w-full h-full justify-start place-items-center gap-2 px-4 opacity-50 hover:opacity-100 noDrag select-none;
+}
+
+.menu {
+	@apply flex justify-center place-items-center w-8 h-8 rounded-lg noDrag;
+}
+
+.daily-card {
+	@apply rounded-3xl border-[1px] w-[390px] border-black shadow-border bg-clear-dark-gray translate-y-[95px];
+}
+
+.weekly-card {
+	@apply rounded-3xl border-[1px] w-[390px] h-[490px] border-black shadow-border bg-clear-dark-gray pb-8;
+}
+
+.weekly-card-lane {
+	@apply flex flex-row w-full justify-between place-items-center text-xl px-6 py-4 bg-block-gray rounded-xl shadow-highLight;
+}
