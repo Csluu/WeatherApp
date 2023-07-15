@@ -8,7 +8,7 @@ const path = require("path");
 // API and longitude and latitude nums
 const { API_KEY, LATITUDE_NUM, LONGITUDE_NUM } = require("./config.js");
 
-// ! Change this to "production" or "development" when in development in when ready for production 
+// ! Change this to "production" or "development" when in development in when ready for production
 process.env.NODE_ENV = "production";
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -21,7 +21,7 @@ let mainWindow;
 const createMainWindow = () => {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
-		width: isDev ? 1500 : 835,
+		width: isDev ? 1500 : 850,
 		height: 535,
 		transparent: true,
 		resizable: false,
@@ -116,4 +116,3 @@ ipcMain.handle("get-weather", async (event, location) => {
 		console.error(error);
 	}
 });
-

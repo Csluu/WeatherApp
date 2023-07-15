@@ -38,11 +38,11 @@
 }
 
 .daily-card {
-	@apply rounded-3xl border-[1px] w-[390px] border-black shadow-border bg-clear-dark-gray translate-y-[95px];
+	@apply rounded-3xl border-[1px] w-[397px] border-black shadow-border bg-clear-dark-gray translate-y-[95px];
 }
 
 .weekly-card {
-	@apply rounded-3xl border-[1px] w-[390px] h-[490px] border-black shadow-border bg-clear-dark-gray pb-8;
+	@apply rounded-3xl border-[1px] w-[397px] h-[490px] border-black shadow-border bg-clear-dark-gray pb-8;
 }
 
 .weekly-card-lane {

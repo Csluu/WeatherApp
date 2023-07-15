@@ -1,11 +1,8 @@
 async function fetchWeather() {
 	try {
 		const data = await window.electron.requestWeather();
+		console.log(data);
 		var forecastData = data.daily.data;
-
-		// Get today's date in the yyyy-mm-dd format
-		let today = new Date();
-		today = today.toISOString().split("T")[0];
 
 		const weatherImages = {
 			mostly_cloudy: {
@@ -78,7 +75,12 @@ async function fetchWeather() {
 		for (let i = 0; i < 7; i++) {
 			const forecast = forecastData[i];
 
-			const date = new Date(forecast.day);
+			// Was showing the wrong days of the week - UTC issue.
+			// minus 1 for month because january starts off at 0
+			const [year, month, day] = forecast.day.split("-").map(Number);
+			const date = new Date(year, month - 1, day);
+			console.log(date);
+
 			const days = [
 				"Sunday",
 				"Monday",
@@ -118,7 +120,7 @@ async function fetchWeather() {
 				  )
 				: window.myAPI.getAssetPath("question.png");
 
-			if (forecast.day === today) {
+			if (forecast == forecastData[0]) {
 				todayContent += `
 			<div class="flex flex-col gap-3">
 					<div class="flex flex-row w-full justify-between">
