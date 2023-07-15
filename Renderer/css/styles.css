@@ -894,6 +894,9 @@ video {
   place-items: center;
   justify-content: space-between;
   border-radius: 0.75rem;
+  border-top-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(43 53 68 / var(--tw-bg-opacity));
   padding-left: 1.5rem;
@@ -902,7 +905,7 @@ video {
   padding-bottom: 1rem;
   font-size: 1.25rem;
   line-height: 1.75rem;
-  --tw-shadow: 0 -1px 0px 0px rgba(255,255,255,0.2), 0 4px 6px -1px rgba(2, 6, 23, 1), 0 2px 4px -1px rgba(2, 6, 23, 1);
+  --tw-shadow: 0 -1px 0px 0px rgba(2, 6, 23, 1), 0 4px 6px -1px rgba(2, 6, 23, 1), 0 2px 4px -1px rgba(2, 6, 23, 1);
   --tw-shadow-colored: 0 -1px 0px 0px var(--tw-shadow-color), 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }

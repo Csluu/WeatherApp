@@ -162,7 +162,7 @@ async function fetchWeather() {
 			class="flex flex-col gap-3 w-full text-clear-blue"
 		>
 			<div
-				class="weekly-card-lane"
+				class="weekly-card-lane "
 			>
 				<h3 class="flex h-full w-1/3 justify-start place-items-center">
 				${dayOfWeek}

@@ -46,5 +46,5 @@
 }
 
 .weekly-card-lane {
-	@apply flex flex-row w-full justify-between place-items-center text-xl px-6 py-4 bg-block-gray rounded-xl shadow-highLight;
+	@apply flex flex-row w-full justify-between place-items-center text-xl px-6 py-4 bg-block-gray rounded-xl shadow-highLight border-t-[1px] border-gray-600;
 }
