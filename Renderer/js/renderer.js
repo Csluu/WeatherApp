@@ -214,8 +214,8 @@ function updateWeatherDaily() {
 // Initial fetch on page load
 fetchWeather();
 
-// Schedule updates around 6 AM and 6 PM
-setInterval(updateWeather, 60000); // Check every minute for simplicity
+// Schedule updates every 12 hours
+setInterval(updateWeather, 43200000);
 
 // Menu Stuff
 function toggleDropDown(dropDown, menu) {
