@@ -203,19 +203,15 @@ async function updateWeather() {
 	// Check if it's around 6 AM or 6 PM
 	if (hours === 6 || hours === 18) {
 		await fetchWeather();
-		displayWeather();
+		console.log("Weather is updated");
 	}
-}
-
-function updateWeatherDaily() {
-	fetchWeather();
 }
 
 // Initial fetch on page load
 fetchWeather();
 
-// Schedule updates every 12 hours
-setInterval(updateWeather, 43200000);
+// Schedule updates around 6 AM and 6 PM
+setInterval(updateWeather, 3600000); // Checks every hour
 
 // Menu Stuff
 function toggleDropDown(dropDown, menu) {

@@ -2,6 +2,7 @@
 
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain } = require("electron");
+const Store = require("electron-store");
 const axios = require("axios");
 const currentWindow = require("electron").BrowserWindow.getFocusedWindow();
 const path = require("path");
@@ -15,12 +16,18 @@ const isDev = process.env.NODE_ENV !== "production";
 const isMac = process.platform === "darwin";
 const isWin = process.platform === "win32";
 
+const store = new Store();
+
 let mainWindow;
 
 // ! Change devTools and frame to false for production
 const createMainWindow = () => {
+	let { x, y } = store.get("windowPosition", { x: undefined, y: undefined });
+
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
+		x,
+		y,
 		width: isDev ? 1500 : 850,
 		height: 535,
 		transparent: true,
@@ -31,7 +38,7 @@ const createMainWindow = () => {
 		// 	: path.join(__dirname, "./Renderer/assets/icons/icon.png"),
 		webPreferences: {
 			// Set this to false when in production
-			devTools: false,
+			devTools: true,
 			nodeIntegration: true,
 			// when using the preload script turn this to true to help with security reasons
 			contextIsolation: true,
@@ -45,6 +52,12 @@ const createMainWindow = () => {
 
 	// and load the index.html of the app.
 	mainWindow.loadFile(path.join(__dirname, "./Renderer/index.html"));
+
+	// Save window position when the window is closed.
+	mainWindow.on("close", () => {
+		let { x, y } = mainWindow.getBounds();
+		store.set("windowPosition", { x, y });
+	});
 
 	// Open the DevTools.
 	// mainWindow.webContents.openDevTools()
