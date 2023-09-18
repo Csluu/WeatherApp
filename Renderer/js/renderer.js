@@ -104,7 +104,7 @@ async function fetchWeather() {
 			<div class="flex flex-col gap-3">
 					<div class="flex flex-row w-full justify-between">
 						<div
-							class="today w-1/2 flex flex-col h-full justify-start text-clear-blue"
+							class="today w-2/3 flex flex-col h-full justify-start text-clear-blue"
 						>
 							<h1 class="text-7xl">${Math.round(forecast.currentTemp)}°F</h1>
 							<div class="text-2xl">
