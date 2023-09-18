@@ -1,15 +1,14 @@
-// main.js
-
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain } = require("electron");
 const Store = require("electron-store");
 const axios = require("axios");
 const currentWindow = require("electron").BrowserWindow.getFocusedWindow();
 const path = require("path");
+const { getWeatherData } = require("./webscrap");
 // API and longitude and latitude nums
 const { API_KEY, LATITUDE_NUM, LONGITUDE_NUM } = require("./config.js");
 
-// ! Change this to "production" or "development" when in development in when ready for production
+// * Change this to "production" or "development" when in development in when ready for production
 process.env.NODE_ENV = "production";
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -20,7 +19,7 @@ const store = new Store();
 
 let mainWindow;
 
-// ! Change devTools and frame to false for production
+// * Change devTools and frame to false for production
 const createMainWindow = () => {
 	let { x, y } = store.get("windowPosition", { x: undefined, y: undefined });
 
@@ -106,25 +105,35 @@ ipcMain.on("minimize-window", () => {
 	}
 });
 
-ipcMain.handle("get-weather", async (event, location) => {
-	const options = {
-		method: "GET",
-		url: "https://ai-weather-by-meteosource.p.rapidapi.com/daily",
-		params: {
-			lat: LATITUDE_NUM,
-			lon: LONGITUDE_NUM,
-			language: "en",
-			units: "auto",
-		},
-		headers: {
-			"X-RapidAPI-Key": API_KEY,
-			"X-RapidAPI-Host": "ai-weather-by-meteosource.p.rapidapi.com",
-		},
-	};
+// ! No longer in use
+// ipcMain.handle("get-weather", async (event, location) => {
+// 	const options = {
+// 		method: "GET",
+// 		url: "https://ai-weather-by-meteosource.p.rapidapi.com/daily",
+// 		params: {
+// 			lat: LATITUDE_NUM,
+// 			lon: LONGITUDE_NUM,
+// 			language: "en",
+// 			units: "auto",
+// 		},
+// 		headers: {
+// 			"X-RapidAPI-Key": API_KEY,
+// 			"X-RapidAPI-Host": "ai-weather-by-meteosource.p.rapidapi.com",
+// 		},
+// 	};
 
+// 	try {
+// 		const response = await axios.request(options);
+// 		return response.data;
+// 	} catch (error) {
+// 		console.error(error);
+// 	}
+// });
+
+ipcMain.handle("get-weather", async () => {
 	try {
-		const response = await axios.request(options);
-		return response.data;
+		const data = await getWeatherData(); // Call your function here
+		return data;
 	} catch (error) {
 		console.error(error);
 	}

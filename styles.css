@@ -4,11 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.noDrag {
+.no-drag {
 	-webkit-app-region: no-drag;
 }
 
-.drag {
+.yes-drag {
 	-webkit-app-region: drag;
 }
 
@@ -26,15 +26,15 @@
 }
 
 .drop-menu {
-	@apply fixed divide-y divide-dark-gray-highlight rounded-xl shadow-border bg-opaque-dark-gray w-36 mt-8 translate-x-[-55px] noDrag;
+	@apply no-drag fixed z-10 mt-8 w-36 translate-x-[-55px] divide-y divide-dark-gray-highlight rounded-xl border-[1px] border-black bg-opaque-dark-gray shadow-border;
 }
 
 .lock-menu {
-	@apply flex flex-row w-full h-full justify-start place-items-center gap-2 px-4 opacity-50 hover:opacity-100 noDrag select-none;
+	@apply flex flex-row w-full h-full justify-start place-items-center gap-2 px-4 opacity-50 hover:opacity-100 no-drag select-none;
 }
 
 .menu {
-	@apply flex justify-center place-items-center w-8 h-8 rounded-lg noDrag;
+	@apply flex justify-center place-items-center w-8 h-8 rounded-lg no-drag;
 }
 
 .daily-card {

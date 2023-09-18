@@ -2,7 +2,7 @@ const path = require("path");
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electron", {
-	requestWeather: async (location) => {
+	requestWeather: async () => {
 		return await ipcRenderer.invoke("get-weather");
 	},
 	closeWindow: () => ipcRenderer.send("close-window"),

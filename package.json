@@ -19,7 +19,11 @@
 	"dependencies": {
 		"axios": "^1.4.0",
 		"electron-is-dev": "^2.0.0",
-		"electron-store": "^8.1.0"
+		"electron-store": "^8.1.0",
+		"puppeteer": "^21.2.1",
+		"puppeteer-extra": "^3.3.6",
+		"puppeteer-extra-plugin-adblocker": "^2.13.6",
+		"puppeteer-extra-plugin-stealth": "^2.11.2"
 	},
 	"build": {
 		"appId": "com.weather-app",

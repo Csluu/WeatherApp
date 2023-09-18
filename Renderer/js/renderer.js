@@ -2,10 +2,11 @@ async function fetchWeather() {
 	try {
 		const data = await window.electron.requestWeather();
 		console.log(data);
-		var forecastData = data.daily.data;
+		var forecastData = data;
+		console.log(forecastData);
 
 		const weatherImages = {
-			mostly_cloudy: {
+			"mostly cloudy": {
 				day: "mostly_cloudy.png",
 				night: "mostly_cloudy_night.png",
 			},
@@ -33,6 +34,10 @@ async function fetchWeather() {
 				day: "rain.png",
 				night: "rain.png",
 			},
+			shower: {
+				day: "rain.png",
+				night: "rain.png",
+			},
 			freezing: {
 				day: "freezing.png",
 				night: "freezing.png",
@@ -41,11 +46,11 @@ async function fetchWeather() {
 				day: "storm.png",
 				night: "storm.png",
 			},
-			mostly_sunny: {
+			"mostly sunny": {
 				day: "sunny.png",
 				night: "night.png",
 			},
-			partly_sunny: {
+			"partly sunny": {
 				day: "partly_sunny.png",
 				night: "partly_night.png",
 			},
@@ -58,15 +63,6 @@ async function fetchWeather() {
 				night: "question.png",
 			},
 		};
-		const weatherState = {
-			mostly_cloudy: "mostly cloudy",
-			mostly_sunny: "mostly sunny",
-			partly_sunny: "partly sunny",
-			tstorm: "thunder storm",
-			light_rain: "light rain",
-			rain_shower: "rain shower",
-			psbl_rain: "possible rain",
-		};
 
 		const isDaytime = isDayTime(); // Custom function to determine if it's daytime
 
@@ -75,42 +71,25 @@ async function fetchWeather() {
 		for (let i = 0; i < 7; i++) {
 			const forecast = forecastData[i];
 
-			// Was showing the wrong days of the week - UTC issue.
-			// minus 1 for month because january starts off at 0
-			const [year, month, day] = forecast.day.split("-").map(Number);
-			const date = new Date(year, month - 1, day);
-			console.log(date);
+			const days = {
+				sun: "Sunday",
+				mon: "Monday",
+				tue: "Tuesday",
+				wed: "Wednesday",
+				thu: "Thursday",
+				fri: "Friday",
+				sat: "Saturday",
+			};
 
-			const days = [
-				"Sunday",
-				"Monday",
-				"Tuesday",
-				"Wednesday",
-				"Thursday",
-				"Friday",
-				"Saturday",
-			];
-			const dayOfWeek = days[date.getDay()];
+			const dayOfWeek = days[forecast.dayOfWeek.toLowerCase()];
 
 			// Check if forecast text contains any of the weather conditions
 			let weatherCondition = "";
 			for (const condition in weatherImages) {
-				if (forecast.weather.toLowerCase().includes(condition)) {
+				if (forecast.forecast.toLowerCase().includes(condition)) {
 					weatherCondition = condition;
 					break;
 				}
-			}
-			let weatherStateCondition = "";
-			for (const condition in weatherState) {
-				if (forecast.weather.toLowerCase().includes(condition)) {
-					weatherStateCondition = weatherState[condition];
-					break;
-				}
-			}
-
-			if (weatherStateCondition === "") {
-				// If no conditions were matched, use the original forecast.weather string
-				weatherStateCondition = forecast.weather.toLowerCase();
 			}
 
 			// Get the corresponding image URL based on weather condition and day/night
@@ -127,15 +106,15 @@ async function fetchWeather() {
 						<div
 							class="today w-1/2 flex flex-col h-full justify-start text-clear-blue"
 						>
-							<h1 class="text-7xl">${Math.round(forecast.temperature)}°F</h1>
+							<h1 class="text-7xl">${Math.round(forecast.currentTemp)}°F</h1>
 							<div class="text-2xl">
-								<p>${weatherStateCondition}</p>
+								<p>${forecast.forecast}</p>
 							</div>
 						</div>
 						<div class="flex">
 							<img
 								class="h-28 w-28"
-								src="${imageUrl}" alt="${forecast.weather}"
+								src="${imageUrl}" alt="${forecast.forecast}"
 							/>
 						</div>
 					</div>
@@ -146,12 +125,10 @@ async function fetchWeather() {
 						class="today flex flex-col h-full justify-start text-clear-blue"
 					>
 						<div class="text-2xl">
-							<p>High ${Math.round(forecast.temperature_max)}°F</p>
-							<p>Low ${Math.round(forecast.temperature_min)}°F</p>
+							<p>High ${Math.round(forecast.maxTemp)}°F</p>
+							<p>Low ${Math.round(forecast.minTemp)}°F</p>
 						</div>
-						<h1 class="text-2xl">Precipitation ${Math.round(
-							forecast.probability.precipitation
-						)}%</h1>
+						<h1 class="text-2xl">Precipitation ${Math.round(forecast.precipitation)}%</h1>
 					</div>
 				</div>
 
@@ -170,11 +147,11 @@ async function fetchWeather() {
 				<h3
 					class="flex flow-row h-full w-1/3 justify-center place-items-center"
 				>
-				${Math.round(forecast.temperature_max)}°F
+				${Math.round(forecast.maxTemp)}°F
 				</h3>
 				<div class="flex w-1/3 justify-end">
 					<div class="flex w-12 h-12">
-						<img src="${imageUrl}" alt="${forecast.weather}" />
+						<img src="${imageUrl}" alt="${forecast.forecast}" />
 					</div>
 				</div>
 			</div>
@@ -196,22 +173,23 @@ function isDayTime() {
 	return hours >= 6 && hours < 18; // Assume day time is between 6 AM and 6 PM
 }
 
-async function updateWeather() {
-	const now = new Date();
-	const hours = now.getHours();
+function updateDelay() {
+	const waitTime =
+		Math.floor(Math.random() * (4000000 - 3600000 + 1)) + 3600000;
+	return waitTime;
+}
 
-	// Check if it's around 6 AM or 6 PM
-	if (hours === 6 || hours === 18) {
-		await fetchWeather();
-		console.log("Weather is updated");
-	}
+async function updateWeather() {
+	await fetchWeather();
+	console.log("Weather is updated");
 }
 
 // Initial fetch on page load
 fetchWeather();
 
 // Schedule updates around 6 AM and 6 PM
-setInterval(updateWeather, 3600000); // Checks every hour
+
+setInterval(updateWeather, updateDelay()); // Checks every hour
 
 // Menu Stuff
 function toggleDropDown(dropDown, menu) {
@@ -227,13 +205,73 @@ toggleDropDown(
 
 function toggleLock() {
 	const menuLock1 = document.getElementById("lock-menu-1");
-	const container = document.getElementById("body");
+	const lockIcon = document.getElementById("lock-icon");
+	const dailyContainer = document.getElementById("dailyBody");
+	const weeklyContainer = document.getElementById("weeklyBody");
+	const lockText = document.getElementById("lock-text");
+
+	const lockedPath =
+		"M6 22q-.825 0-1.413-.588T4 20V10q0-.825.588-1.413T6 8h1V6q0-2.075 1.463-3.538T12 1q2.075 0 3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.588 1.413T18 22H6Zm6-5q.825 0 1.413-.588T14 15q0-.825-.588-1.413T12 13q-.825 0-1.413.588T10 15q0 .825.588 1.413T12 17ZM9 8h6V6q0-1.25-.875-2.125T12 3q-1.25 0-2.125.875T9 6v2Z";
+	const unlockedPath =
+		"M6 8h9V6q0-1.25-.875-2.125T12 3q-1.25 0-2.125.875T9 6H7q0-2.075 1.463-3.538T12 1q2.075 0 3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.588 1.413T18 22H6q-.825 0-1.413-.588T4 20V10q0-.825.588-1.413T6 8Zm6 9q.825 0 1.413-.588T14 15q0-.825-.588-1.413T12 13q-.825 0-1.413.588T10 15q0 .825.588 1.413T12 17Z";
 
 	menuLock1.addEventListener("click", () => {
-		container.classList.toggle("drag");
-		console.log("ITS WORKING");
+		const currentPath = lockIcon.getAttribute("d");
+
+		if (currentPath === lockedPath) {
+			lockIcon.setAttribute("d", unlockedPath);
+		} else {
+			lockIcon.setAttribute("d", lockedPath);
+		}
+
+		// Toggle text for Lock/Unlock
+		if (lockText.innerHTML === "Lock") {
+			lockText.innerHTML = "Unlock";
+		} else {
+			lockText.innerHTML = "Lock";
+		}
+
+		dailyContainer.classList.toggle("yes-drag");
+		weeklyContainer.classList.toggle("yes-drag");
 	});
 }
+
+["menu-1"].forEach((buttonId) => {
+	document.getElementById(buttonId).addEventListener("click", function (event) {
+		// Assuming the menu IDs are the button IDs without the "show-" prefix.
+		const menuId = buttonId.replace("show-", "");
+		document.getElementById(menuId).classList.remove("hidden");
+		event.stopPropagation();
+	});
+});
+
+function checkForMenuHide(event) {
+	// The element that was clicked
+	const clickedElement = event.target;
+
+	// An array containing the IDs of all menus you want to manage
+	const menuIds = ["drop-down-1"];
+
+	// Loop through each menu ID
+	menuIds.forEach((menuId) => {
+		// Get the menu element by its ID
+		const menu = document.getElementById(menuId);
+
+		// Check if the clicked element is inside the menu or is the menu itself
+		const isInsideMenu =
+			menu.contains(clickedElement) || menu === clickedElement;
+
+		if (!isInsideMenu) {
+			// If the click was outside the menu, hide it
+			menu.classList.add("hidden");
+		}
+	});
+}
+// Attach the function to the document
+document.addEventListener("click", checkForMenuHide);
+
+// Attach the function to the document
+document.addEventListener("click", checkForMenuHide);
 
 toggleLock();
 // Menu Stuff End
