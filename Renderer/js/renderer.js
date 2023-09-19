@@ -58,6 +58,10 @@ async function fetchWeather() {
 				day: "sunny.png",
 				night: "night.png",
 			},
+			clear: {
+				day: "sunny.png",
+				night: "night.png",
+			},
 			"": {
 				day: "question.png",
 				night: "question.png",
