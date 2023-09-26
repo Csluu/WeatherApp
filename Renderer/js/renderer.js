@@ -14,6 +14,10 @@ async function fetchWeather() {
 				day: "cloudy.png",
 				night: "cloudy.png",
 			},
+			dizzle: {
+				day: "light_rain.png",
+				night: "light_rain.png",
+			},
 			overcast: {
 				day: "cloudy.png",
 				night: "cloudy.png",
