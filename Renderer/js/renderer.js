@@ -14,7 +14,7 @@ async function fetchWeather() {
 				day: "cloudy.png",
 				night: "cloudy.png",
 			},
-			dizzle: {
+			drizzle: {
 				day: "light_rain.png",
 				night: "light_rain.png",
 			},
@@ -283,3 +283,26 @@ document.addEventListener("click", checkForMenuHide);
 
 toggleLock();
 // Menu Stuff End
+
+// Request the current time from the main process
+window.api.send("toMain", "request-current-time");
+
+// Receive the current time from the main process
+window.api.receive("fromMain", (data) => {
+	document.getElementById("current-time").textContent = data;
+});
+
+function getCurrentTime() {
+	// Request the current time from the main process
+	window.api.send("toMain", "request-current-time");
+}
+
+// Call getCurrentTime now, and then every second
+getCurrentTime();
+setInterval(getCurrentTime, 1000);
+
+// Receive the current time from the main process
+window.api.receive("fromMain", (data) => {
+	document.getElementById("current-time").textContent = data.time;
+	document.getElementById("current-date").textContent = data.date;
+});

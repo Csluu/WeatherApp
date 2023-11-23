@@ -22,7 +22,7 @@
 }
 
 .body {
-	@apply flex justify-center place-items-center mt-3 font-quicksand font-semibold gap-6;
+	@apply flex justify-center place-items-start mt-3 font-quicksand font-semibold gap-6;
 }
 
 .drop-menu {
@@ -38,7 +38,7 @@
 }
 
 .daily-card {
-	@apply rounded-3xl border-[1px] w-[397px] border-black shadow-border bg-clear-dark-gray translate-y-[95px];
+	@apply rounded-3xl border-[1px] w-[397px] border-black shadow-border bg-clear-dark-gray;
 }
 
 .weekly-card {

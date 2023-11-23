@@ -6,7 +6,7 @@ const currentWindow = require("electron").BrowserWindow.getFocusedWindow();
 const path = require("path");
 const { getWeatherData } = require("./webscrap");
 // API and longitude and latitude nums
-const { API_KEY, LATITUDE_NUM, LONGITUDE_NUM } = require("./config.js");
+// const { API_KEY, LATITUDE_NUM, LONGITUDE_NUM } = require("./config.js");
 
 // * Change this to "production" or "development" when in development in when ready for production
 process.env.NODE_ENV = "production";
@@ -45,9 +45,9 @@ const createMainWindow = () => {
 		},
 	});
 
-	if (isDev) {
-		mainWindow.webContents.openDevTools();
-	}
+	// if (isDev) {
+	// 	mainWindow.webContents.openDevTools();
+	// }
 
 	// and load the index.html of the app.
 	mainWindow.loadFile(path.join(__dirname, "./Renderer/index.html"));
@@ -136,5 +136,53 @@ ipcMain.handle("get-weather", async () => {
 		return data;
 	} catch (error) {
 		console.error(error);
+	}
+});
+
+const days = [
+	"Sunday",
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday",
+];
+const months = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+
+ipcMain.on("toMain", (event, args) => {
+	if (args === "request-current-time") {
+		const date = new Date();
+		let hours = date.getHours();
+		let minutes = date.getMinutes();
+		const dayOfWeek = days[date.getDay()];
+		const dayOfMonth = date.getDate();
+		const month = months[date.getMonth()];
+
+		// convert 24-hour time to 12-hour time format
+		const period = hours >= 12 ? "PM" : "AM";
+		hours = hours % 12;
+		hours = hours ? hours : 12; // hour '0' should be '12'
+		// Add leading zero if hours is a single digit
+		hours = hours.toString().padStart(2, "0");
+		minutes = minutes < 10 ? "0" + minutes : minutes; // padding zero if minutes less than '10'
+
+		const time = `${hours}:${minutes} ${period}`;
+		const formattedDate = `${dayOfWeek} ${dayOfMonth} ${month}`;
+
+		event.reply("fromMain", { time, date: formattedDate });
 	}
 });
