@@ -30,8 +30,27 @@
 					></h2>
 				</div>
 			</div>
-			<div id="dailyBody" class="daily-card yes-drag">
+			<div id="dailyBody" class="daily-card yes-drag relative">
 				<div class="flex flex-col justify-center px-8 py-8">
+					<svg
+						id="daily-loading-spinner"
+						xmlns="http://www.w3.org/2000/svg"
+						width="32"
+						height="32"
+						viewBox="0 0 24 24"
+						class="hidden absolute top-28 left-40 w-16 h-16 animate-spin"
+					>
+						<g fill="#70B3E2">
+							<path
+								fill-rule="evenodd"
+								d="M12 19a7 7 0 1 0 0-14a7 7 0 0 0 0 14Zm0 3c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Z"
+								clip-rule="evenodd"
+								opacity=".2"
+							/>
+							<path d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 0 0-7 7H2Z" />
+						</g>
+					</svg>
+
 					<div id="today-weather" class="flex flex-col"></div>
 				</div>
 			</div>
@@ -138,12 +157,30 @@
 					</div>
 				</div>
 			</header>
-			<section class="flex h-fit flex-col mx-4">
+			<section class="flex h-fit flex-col mx-4 relative">
 				<div class="flex flex-col w-full justify-evenly gap-2">
 					<h1 class="flex justify-start text-2xl px-3 text-clear-blue">
 						Weekly Forecast
 					</h1>
 					<!-- TEST -->
+					<svg
+						id="weekly-loading-spinner"
+						xmlns="http://www.w3.org/2000/svg"
+						width="32"
+						height="32"
+						viewBox="0 0 24 24"
+						class="hidden absolute top-40 left-[135px] w-24 h-24 animate-spin"
+					>
+						<g fill="#70B3E2">
+							<path
+								fill-rule="evenodd"
+								d="M12 19a7 7 0 1 0 0-14a7 7 0 0 0 0 14Zm0 3c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10Z"
+								clip-rule="evenodd"
+								opacity=".2"
+							/>
+							<path d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 0 0-7 7H2Z" />
+						</g>
+					</svg>
 					<div
 						id="forecast-weather"
 						class="flex flex-col w-full h-[390px] justify-start gap-4 px-3 py-2 overflow-scroll rounded-3xl no-drag"

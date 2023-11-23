@@ -38,7 +38,7 @@
 }
 
 .daily-card {
-	@apply rounded-3xl border-[1px] w-[397px] border-black shadow-border bg-clear-dark-gray;
+	@apply rounded-3xl border-[1px] w-[397px] h-[300px] border-black shadow-border bg-clear-dark-gray;
 }
 
 .weekly-card {

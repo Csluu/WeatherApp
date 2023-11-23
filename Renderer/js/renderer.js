@@ -1,5 +1,11 @@
 async function fetchWeather() {
 	try {
+		// Show the spinner
+		document.getElementById("daily-loading-spinner").classList.remove("hidden");
+		document
+			.getElementById("weekly-loading-spinner")
+			.classList.remove("hidden");
+
 		const data = await window.electron.requestWeather();
 		console.log(data);
 		var forecastData = data;
@@ -170,8 +176,15 @@ async function fetchWeather() {
 
 		document.querySelector("#today-weather").innerHTML = todayContent;
 		document.querySelector("#forecast-weather").innerHTML = content;
+
+		// Hide the spinner
+		document.getElementById("daily-loading-spinner").classList.add("hidden");
+		document.getElementById("weekly-loading-spinner").classList.add("hidden");
 	} catch (err) {
 		console.error(err);
+		// Hide the spinner in case of error as well
+		document.getElementById("daily-loading-spinner").classList.add("hidden");
+		document.getElementById("weekly-loading-spinner").classList.add("hidden");
 	}
 }
 
