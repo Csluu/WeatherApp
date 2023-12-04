@@ -76,58 +76,7 @@
 								/>
 							</svg>
 						</button>
-						<!-- Drop Down Menu -->
-						<div
-							id="drop-down-1"
-							class="drop-menu select-none hidden no-drag z-50"
-						>
-							<h1 class="block px-4 py-2 text-sm text-gray-400">Main Menu</h1>
-							<ul class="text-sm text-gray-700 dark:text-gray-200">
-								<button id="lock-menu-1" class="lock-menu group">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										class="duration-150 ease-in-out group-hover:scale-105 group-hover:opacity-100"
-									>
-										<path
-											id="lock-icon"
-											fill="gray"
-											d="M6 22q-.825 0-1.413-.588T4 20V10q0-.825.588-1.413T6 8h1V6q0-2.075 1.463-3.538T12 1q2.075 0 3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.588 1.413T18 22H6Zm6-5q.825 0 1.413-.588T14 15q0-.825-.588-1.413T12 13q-.825 0-1.413.588T10 15q0 .825.588 1.413T12 17ZM9 8h6V6q0-1.25-.875-2.125T12 3q-1.25 0-2.125.875T9 6v2Z"
-										/>
-									</svg>
-									<a
-										id="lock-text"
-										href="#"
-										class="py-[10px] duration-150 ease-in-out group-hover:scale-[102%]"
-										>Lock</a
-									>
-								</button>
 
-								<button
-									onclick="window.electron.minimizeWindow()"
-									class="lock-menu h-full"
-								>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 16 16"
-										class="opacity-50 group-hover:opacity-100 group-hover:scale-110 ease-in-out duration-150"
-									>
-										<path
-											style="fill: gray"
-											d="M 4 7 L 4 9 L 12 9 L 12 7 L 4 7 z"
-										/>
-									</svg>
-									<a
-										class="py-[10px] duration-150 ease-in-out group-hover:scale-[102%] h-full"
-										>Minimize</a
-									>
-								</button>
-							</ul>
-						</div>
 						<form id="todo-form1">
 							<button
 								onclick="window.electron.closeWindow()"
@@ -158,7 +107,7 @@
 				</div>
 			</header>
 			<section class="flex h-fit flex-col mx-4 relative">
-				<div class="flex flex-col w-full justify-evenly gap-2">
+				<div class="flex flex-col w-full justify-evenly gap-2 z-0">
 					<h1 class="flex justify-start text-2xl px-3 text-clear-blue">
 						Weekly Forecast
 					</h1>
@@ -185,6 +134,55 @@
 						id="forecast-weather"
 						class="flex flex-col w-full h-[390px] justify-start gap-4 px-3 py-2 overflow-scroll rounded-3xl no-drag"
 					></div>
+				</div>
+				<!-- Drop Down Menu -->
+				<div id="drop-down-1" class="drop-menu select-none hidden no-drag z-50">
+					<h1 class="block px-4 py-2 text-sm text-gray-400">Main Menu</h1>
+					<ul class="text-sm text-gray-700 dark:text-gray-200">
+						<button id="lock-menu-1" class="lock-menu group">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								class="duration-150 ease-in-out group-hover:scale-105 group-hover:opacity-100"
+							>
+								<path
+									id="lock-icon"
+									fill="gray"
+									d="M6 22q-.825 0-1.413-.588T4 20V10q0-.825.588-1.413T6 8h1V6q0-2.075 1.463-3.538T12 1q2.075 0 3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.588 1.413T18 22H6Zm6-5q.825 0 1.413-.588T14 15q0-.825-.588-1.413T12 13q-.825 0-1.413.588T10 15q0 .825.588 1.413T12 17ZM9 8h6V6q0-1.25-.875-2.125T12 3q-1.25 0-2.125.875T9 6v2Z"
+								/>
+							</svg>
+							<a
+								id="lock-text"
+								href="#"
+								class="py-[10px] duration-150 ease-in-out group-hover:scale-[102%]"
+								>Lock</a
+							>
+						</button>
+
+						<button
+							onclick="window.electron.minimizeWindow()"
+							class="lock-menu h-full"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 16 16"
+								class="opacity-50 group-hover:opacity-100 group-hover:scale-110 ease-in-out duration-150"
+							>
+								<path
+									style="fill: gray"
+									d="M 4 7 L 4 9 L 12 9 L 12 7 L 4 7 z"
+								/>
+							</svg>
+							<a
+								class="py-[10px] duration-150 ease-in-out group-hover:scale-[102%] h-full"
+								>Minimize</a
+							>
+						</button>
+					</ul>
 				</div>
 			</section>
 		</span>

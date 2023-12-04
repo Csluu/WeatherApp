@@ -1,11 +1,18 @@
+// Global flag
+var isInitialLoad = true;
+
 async function fetchWeather() {
 	try {
-		// Show the spinner
-		document.getElementById("daily-loading-spinner").classList.remove("hidden");
-		document
-			.getElementById("weekly-loading-spinner")
-			.classList.remove("hidden");
-
+		// Show the spinner on initial load
+		if (isInitialLoad) {
+			// Show the spinner only on initial load
+			document
+				.getElementById("daily-loading-spinner")
+				.classList.remove("hidden");
+			document
+				.getElementById("weekly-loading-spinner")
+				.classList.remove("hidden");
+		}
 		const data = await window.electron.requestWeather();
 		console.log(data);
 		var forecastData = data;
@@ -85,6 +92,12 @@ async function fetchWeather() {
 		for (let i = 0; i < 7; i++) {
 			const forecast = forecastData[i];
 
+			// Truncate forecast.forecast to 16 characters and add ellipsis if it was longer
+			let truncatedForecast =
+				forecast.forecast.length > 14
+					? forecast.forecast.slice(0, 14) + "..."
+					: forecast.forecast;
+
 			const days = {
 				sun: "Sunday",
 				mon: "Monday",
@@ -115,14 +128,14 @@ async function fetchWeather() {
 
 			if (forecast == forecastData[0]) {
 				todayContent += `
-			<div class="flex flex-col gap-3">
+			<div class="flex flex-col gap-3 z-0">
 					<div class="flex flex-row w-full justify-between">
 						<div
 							class="today w-2/3 flex flex-col h-full justify-start text-clear-blue"
 						>
 							<h1 class="text-7xl">${Math.round(forecast.currentTemp)}°F</h1>
 							<div class="text-2xl">
-								<p>${forecast.forecast}</p>
+								<p>${truncatedForecast}</p>
 							</div>
 						</div>
 						<div class="flex">
@@ -150,7 +163,7 @@ async function fetchWeather() {
 			} else {
 				content += `
 			<div
-			class="flex flex-col gap-3 w-full text-clear-blue"
+			class="flex flex-col gap-3 w-full text-clear-blue z-0"
 		>
 			<div
 				class="weekly-card-lane "
@@ -180,6 +193,9 @@ async function fetchWeather() {
 		// Hide the spinner
 		document.getElementById("daily-loading-spinner").classList.add("hidden");
 		document.getElementById("weekly-loading-spinner").classList.add("hidden");
+
+		// After the first successful load, set isInitialLoad to false
+		isInitialLoad = false;
 	} catch (err) {
 		console.error(err);
 		// Hide the spinner in case of error as well

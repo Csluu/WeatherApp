@@ -26,7 +26,8 @@
 }
 
 .drop-menu {
-	@apply no-drag fixed z-10 mt-8 w-36 translate-x-[-55px] divide-y divide-dark-gray-highlight rounded-xl border-[1px] border-black bg-opaque-dark-gray shadow-border;
+	@apply no-drag fixed mt-8 w-36 translate-x-[240px] translate-y-[-25px] divide-y divide-dark-gray-highlight rounded-xl border-[1px] border-black bg-opaque-dark-gray shadow-border;
+	z-index: 1000;
 }
 
 .lock-menu {
@@ -42,7 +43,7 @@
 }
 
 .weekly-card {
-	@apply rounded-3xl border-[1px] w-[397px] h-[490px] border-black shadow-border bg-clear-dark-gray pb-8;
+	@apply rounded-3xl border-[1px] w-[397px] h-[490px] border-black shadow-border bg-clear-dark-gray pb-8 z-0;
 }
 
 .weekly-card-lane {
